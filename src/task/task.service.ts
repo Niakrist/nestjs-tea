@@ -8,6 +8,7 @@ interface ITask {
   isCompleted: boolean;
   description?: string;
   priority?: number;
+  tags?: string[];
 }
 
 @Injectable()
@@ -31,11 +32,13 @@ export class TaskService {
   }
 
   create(dto: CreateTaskDto) {
+    const { title, description, priority, tags } = dto;
     const newTask = {
       id: this.tasks.length + 1,
-      title: dto.title,
-      description: dto.description,
-      priority: dto.priority,
+      title,
+      description,
+      priority,
+      tags,
       isCompleted: false,
     };
     this.tasks.push(newTask);
@@ -43,19 +46,14 @@ export class TaskService {
   }
 
   update(id: number, dto: UpdateTaskDto) {
-    // const updateTasks = this.tasks.map((task) =>
-    //   task.id === id
-    //     ? { ...task, title: dto.title, isCompleted: dto.isCompleted }
-    //     : task,
-    // );
-    // return updateTasks;
-    const { title, isCompleted, description, priority } = dto;
+    const { title, isCompleted, description, priority, tags } = dto;
 
     const task = this.getById(id);
     task.title = title;
     task.isCompleted = isCompleted;
     task.description = description;
     task.priority = priority;
+    task.tags = tags;
     return task;
   }
 
