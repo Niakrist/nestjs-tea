@@ -1,45 +1,28 @@
-import { Controller, Get, Headers, Query, Req, Res } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { emitWarning } from 'process';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { MovieDto } from './dto/movie.dto';
 import { MovieService } from './movie.service';
-
-const films = [
-  {
-    title: 'film 1',
-  },
-  {
-    title: 'film 2',
-  },
-  {
-    title: 'film 3',
-  },
-];
 
 @Controller('movies')
 export class MovieController {
+  constructor(private readonly movieService: MovieService) {}
+
   @Get()
-  findAll(@Query() query: any) {
-    return JSON.stringify(query);
+  async findAll() {
+    return await this.movieService.findAll();
   }
 
-  @Get('headers')
-  getHeders(@Headers() headers: any) {
-    return headers;
+  @Post()
+  async create(@Body() dto: MovieDto) {
+    return await this.movieService.create(dto);
   }
 
-  @Get('request')
-  gerRequestDetail(@Req() req: Request) {
-    return {
-      method: req.method,
-      url: req.url,
-      headers: req.headers,
-      query: req.query,
-      params: req.params,
-    };
+  @Get(':id')
+  async findOneById(@Param('id') id: string) {
+    return this.movieService.findOneById(Number(id));
   }
 
-  @Get('response')
-  gerResponseDetail(@Res() res: Response) {
-    return res.status(200).json({ message: 'work' });
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() dto: MovieDto) {
+    return this.movieService.update(Number(id), dto);
   }
 }
