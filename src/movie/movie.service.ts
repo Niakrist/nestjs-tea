@@ -41,9 +41,16 @@ export class MovieService {
   async update(id: number, dto: MovieDto): Promise<MovieEntity> {
     const { title, releaseYear, isPublic } = await dto;
     const movie = await this.findOneById(id);
-    movie.title = await title;
-    movie.releaseYear = await releaseYear;
-    movie.isPublic = await isPublic;
+    // movie.title = await title;
+    // movie.releaseYear = await releaseYear;
+    // movie.isPublic = await isPublic;
+    Object.assign(movie, dto);
     return await this.movieRepository.save(movie);
+  }
+
+  async delete(id: number): Promise<MovieEntity> {
+    const movie = await this.findOneById(id);
+    await this.movieRepository.remove(movie);
+    return movie;
   }
 }
