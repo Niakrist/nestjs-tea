@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ActorService } from './actor.service';
 import { ActorDto } from './dto/actor.dto';
 
@@ -9,5 +9,9 @@ export class ActorController {
   @Post()
   create(@Body() dto: ActorDto) {
     return this.actorService.create(dto);
+  }
+  @Get()
+  findAll() {
+    return this.actorService.findAll();
   }
 }

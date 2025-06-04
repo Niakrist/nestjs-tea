@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsBoolean,
   IsNotEmpty,
   IsNumber,
@@ -31,6 +32,7 @@ export class MovieDto {
   @IsString()
   genre: Genre;
 
-  @IsUUID('4')
-  actor_id: string;
+  @IsArray()
+  @IsUUID('4', { each: true })
+  actorsId: string[];
 }

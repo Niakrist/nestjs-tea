@@ -16,4 +16,8 @@ export class ActorService {
     const actor = await this.actorRepository.create({ name });
     return await this.actorRepository.save(actor);
   }
+
+  async findAll(): Promise<ActorEntity[]> {
+    return await this.actorRepository.find();
+  }
 }
