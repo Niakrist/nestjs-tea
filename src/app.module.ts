@@ -7,6 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getTypeOrmConfig } from './config/typeorm.config';
+import { ReviewModule } from './review/review.module';
+import { ActorModule } from './actor/actor.module';
 dotenv.config();
 
 @Module({
@@ -22,6 +24,8 @@ dotenv.config();
     }),
     TaskModule,
     MovieModule,
+    ReviewModule,
+    ActorModule,
   ],
   controllers: [AppController],
   providers: [AppService],

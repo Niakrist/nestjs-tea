@@ -26,15 +26,15 @@ export class MovieController {
 
   @Get(':id')
   async findOneById(@Param('id') id: string) {
-    return this.movieService.findOneById(Number(id));
+    return this.movieService.findOneById(id);
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() dto: MovieDto) {
-    return this.movieService.update(Number(id), dto);
+    return this.movieService.update(id, dto);
   }
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return this.movieService.delete(Number(id));
+    return this.movieService.delete(id);
   }
 }

@@ -1,4 +1,11 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+import { Genre } from '../entities/movie.entity';
 
 export class MovieDto {
   @IsNotEmpty()
@@ -10,5 +17,20 @@ export class MovieDto {
   releaseYear: number;
 
   @IsBoolean()
-  isPublic: boolean;
+  isAvailable: boolean;
+
+  @IsString()
+  description: string;
+
+  @IsNumber()
+  rating: number;
+
+  @IsString()
+  releaseData: string;
+
+  @IsString()
+  genre: Genre;
+
+  @IsUUID('4')
+  actor_id: string;
 }

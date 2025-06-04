@@ -21,16 +21,28 @@ export class MovieService {
   }
 
   async create(dto: MovieDto): Promise<MovieEntity> {
-    const { title, releaseYear, isPublic } = await dto;
+    const {
+      title,
+      releaseYear,
+      isAvailable,
+      description,
+      genre,
+      rating,
+      releaseData,
+    } = await dto;
     const movie = await this.movieRepository.create({
       title,
       releaseYear,
-      isPublic,
+      isAvailable,
+      description,
+      genre,
+      rating,
+      releaseData,
     });
     return await this.movieRepository.save(movie);
   }
 
-  async findOneById(id: number): Promise<MovieEntity> {
+  async findOneById(id: string): Promise<MovieEntity> {
     const movie = await this.movieRepository.findOne({ where: { id } });
     if (!movie) {
       throw new NotFoundException(`Фильма с id ${id} не найдно`);
@@ -38,8 +50,8 @@ export class MovieService {
     return movie;
   }
 
-  async update(id: number, dto: MovieDto): Promise<MovieEntity> {
-    const { title, releaseYear, isPublic } = await dto;
+  async update(id: string, dto: MovieDto): Promise<MovieEntity> {
+    const { title, releaseYear, isAvailable } = await dto;
     const movie = await this.findOneById(id);
     // movie.title = await title;
     // movie.releaseYear = await releaseYear;
@@ -48,7 +60,7 @@ export class MovieService {
     return await this.movieRepository.save(movie);
   }
 
-  async delete(id: number): Promise<MovieEntity> {
+  async delete(id: string): Promise<MovieEntity> {
     const movie = await this.findOneById(id);
     await this.movieRepository.remove(movie);
     return movie;
