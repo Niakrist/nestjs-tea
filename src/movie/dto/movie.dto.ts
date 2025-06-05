@@ -32,6 +32,9 @@ export class MovieDto {
   @IsString()
   genre: Genre;
 
+  @IsString()
+  imageUrl: string;
+
   @IsArray()
   @IsUUID('4', { each: true })
   actorsId: string[];
